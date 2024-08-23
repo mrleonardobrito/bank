@@ -2,7 +2,7 @@
 #define UTILS_H
 
 #include "../cliente/cliente.h" 
-#include "../node/node.h"  
+#include "../fila/fila.h"  
 #include "../report/report.h" 
 
 #ifdef _WIN32
@@ -12,5 +12,5 @@
 #endif
 
 void limpar_buffer();
-void menu(Node* fila);
+int menu(Node* fila);
 #endif

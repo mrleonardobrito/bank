@@ -1,36 +1,33 @@
 #include <stdio.h>  
 #include "utils.h"  
 
-void menu(Node* fila){
+int menu(Node* fila){
     CLEAR_SCREEN;
     int selecao;
-    printf("O que você gostaria de ver:\n 1 - Inserir cliente na fila \n 2 - Retirar cliente da fila \n 3 - Verificar estado da fila \n 4 - visualizar relatorio\n");
+    printf("O que você gostaria de ver:\n 1 - Inserir cliente na fila \n 2 - Atender cliente \n 3 - Verificar estado da fila \n 4 - Visualizar relatorio e terminar o dia\n");
     scanf("%d", &selecao);
     limpar_buffer(); 
     switch (selecao)
     {
     case 1:
-    {
-        Cliente *cliente = criar_cliente();
-        inserir_na_fila(fila, cliente);
-    }
-        break;
+        receber_cliente(fila);
+        return 1;
         
     case 2:
-        remover_da_fila(&fila, relatorio);
-        break;
+        atender_cliente(&fila, relatorio);
+        return 2;
 
     case 3:
-        printar_fila(fila);
-        break;
+        exibir_fila(fila);
+        return 3;
 
     case 4:
         printar_relatorio(relatorio);
-        break;
+        return 4;
 
     default:
         printf("Opção inválida.\n");
-        break;
+        menu(fila);
     }
 }
 

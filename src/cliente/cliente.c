@@ -3,52 +3,69 @@
 #include <string.h>
 #include "cliente.h"
 
-Cliente* criar_cliente() {
+Node* criar_cliente(int senha) {
     Cliente *cliente = (Cliente*)malloc(sizeof(Cliente));
     if (cliente == NULL) {
         fprintf(stderr, "Erro ao alocar memória para cliente.\n");
         exit(EXIT_FAILURE);
     }
+    cliente->senha = senha;
 
-    printf("Digite o nome do cliente: ");
-    fgets(cliente->nome, sizeof(cliente->nome), stdin);
-    cliente->nome[strcspn(cliente->nome, "\n")] = '\0'; 
-
-    printf("Digite a idade do cliente: ");
-    scanf("%d", &cliente->idade);
-    limpar_buffer(); 
-
-    printf("Digite o código de transação (1 - Saque, 2 - Deposito, 3 - Pagamento, 4 - Transferencia): ");
-    scanf("%d", &cliente->cod);
-    limpar_buffer();
-
-    selecionar_transacao(cliente);
-
-    return cliente;
+    Node* node = malloc(sizeof(Node));
+    node->cliente = cliente;
+    node->prox = NULL;
+    return node;
 }
 
-void selecionar_transacao(Cliente *cliente) {
-    switch (cliente->cod) {
+void atender_cliente(Node** fila, Cliente* relatorio) {
+    if (*fila == NULL || (*fila)->prox == NULL) {
+        printf("A fila está vazia\n");
+        return;
+    }
+
+    Node* aux = (*fila)->prox;
+    (*fila)->prox = aux->prox;
+
+    printf("Atendendo o cliente com senha %d\n", aux->cliente->senha);
+    int opcao;
+    do{
+        printf("Quais transações deseja realizar?\n");
+        printf("1 - Saque\n");
+        printf("2 - Depósito\n");
+        printf("3 - Pagamento\n");
+        printf("4 - Transferência\n");
+
+        opcao = selecionar_transacao(aux->cliente);
+    } while (opcao != -1);
+
+    preencher_relatorio(aux->cliente, relatorio);
+
+    free(aux->cliente);
+    free(aux);
+}
+
+int selecionar_transacao(Cliente *cliente) {
+    int opcao;
+    scanf("%d", &opcao);
+   
+    switch (opcao) {
         case 1:
-            strcpy(cliente->transacao, "Saque");
-            cliente->tempo_atendimento = 50;
-            break;
+            // Saque
+            cliente->tempo_atendimento += 50;
+            return 1;
         case 2:
-            strcpy(cliente->transacao, "Deposito");
-            cliente->tempo_atendimento = 70;
-            break;
+            // Depósito
+            cliente->tempo_atendimento += 70;
+            return 2;
         case 3:
-            strcpy(cliente->transacao, "Pagamento");
-            cliente->tempo_atendimento = 100;
-            break;
+            // Pagamento
+            cliente->tempo_atendimento += 100;
+            return 3;
         case 4:
-            strcpy(cliente->transacao, "Transferencia");
-            cliente->tempo_atendimento = 60;
-            break;
-        default:
-            printf("Código de transação inválido.\n");
-            cliente->transacao[0] = '\0'; 
-            cliente->tempo_atendimento = 0;
-            break;
+            // Transferência
+            cliente->tempo_atendimento += 60;
+            return 4;
+        default:       
+            return -1; 
     }
 }

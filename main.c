@@ -2,21 +2,19 @@
 #include <string.h>
 #include "src/cliente/cliente.h"
 #include "src/report/report.h"
-#include "src/node/node.h"
+#include "src/fila/fila.h"
 #include "src/utils/utils.h"
 #include <stdlib.h>
 
 int main() {
     Node* fila = iniciar_fila();
-    int continuar = 1;
-
-    while (continuar) {
+  
+    int opcao;
+    do {
         CLEAR_SCREEN;
-        menu(fila);
-        printf("Deseja realizar outra ação? (1 - Sim, 0 - Não): ");
-        scanf("%d", &continuar);
+        opcao = menu(fila);
         limpar_buffer();
-    }
+    } while(opcao != 4);
 
     printf("FINALIZANDO...\n");
 
