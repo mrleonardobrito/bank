@@ -1,7 +1,6 @@
 #include <stdio.h>  
 #include "utils.h"  
 
-
 void menu(Node* fila){
     CLEAR_SCREEN;
     int selecao;
