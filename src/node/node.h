@@ -2,12 +2,10 @@
 #define NODE_H
 
 #include "../cliente/cliente.h"  
-
 typedef struct node {
     Cliente *cliente;
     struct node *prox;
 } Node;
-
 
 Node* criar_node(Cliente* cliente);
 Node* iniciar_fila();

@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include "cliente/cliente.h"
-#include "report/report.h"
-#include "node/node.h"
-#include "utils/utils.h"
+#include "src/cliente/cliente.h"
+#include "src/report/report.h"
+#include "src/node/node.h"
+#include "src/utils/utils.h"
 #include <stdlib.h>
 
 int main() {

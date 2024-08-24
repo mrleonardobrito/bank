@@ -1,6 +1,5 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
-#include "../utils/utils.h"
 
 typedef struct cliente {
     char nome[60];
@@ -13,5 +12,7 @@ typedef struct cliente {
 
 Cliente* criar_cliente();
 void selecionar_transacao(Cliente *cliente);
+
+#include "../utils/utils.h"
 
 #endif

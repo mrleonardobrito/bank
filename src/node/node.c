@@ -1,8 +1,8 @@
-#include "node.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../report/report.h"
+#include "node.h"
 
 Node* criar_node(Cliente* cliente) {
     Node* node = malloc(sizeof(Node));
